@@ -24,6 +24,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9nXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Ivan/Documents/GitHubRepos/DogsApp/DogsApp/DogsApp/Views/Dog/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9nXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ivan/Documents/GitHubRepos/DogsApp/DogsApp/DogsApp/Views/Dog/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9nXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Ivan/Documents/GitHubRepos/DogsApp/DogsApp/DogsApp/Views/Dog/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9nXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Ivan/Documents/GitHubRepos/DogsApp/DogsApp/DogsApp/Views/Dog/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9nXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
