@@ -40,7 +40,7 @@ namespace DogsApp.Controllers
             }
             return View(dogs);
         }
-
+        //djagaradjugara
         // GET: DogController/Details/5
         public ActionResult Details(int? id)
         {
