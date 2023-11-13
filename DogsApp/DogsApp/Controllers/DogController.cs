@@ -1,4 +1,5 @@
-﻿using DogsApp.Data;
+﻿using DogsApp.Core.Contracts;
+using DogsApp.Data;
 using DogsApp.Infrastructure.Data.Domain;
 using DogsApp.Models.Dog;
 using Microsoft.AspNetCore.Http;
@@ -8,10 +9,10 @@ namespace DogsApp.Controllers
 {
     public class DogController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        public DogController(ApplicationDbContext context)
+        private readonly IDogService _dogService;
+        public DogController(IDogService dogService)
         {
-            _context = context;
+            this._dogService = dogService;
         }
         // GET: DogController
         public ActionResult Index(string searchStringBreed, string searchStringName)

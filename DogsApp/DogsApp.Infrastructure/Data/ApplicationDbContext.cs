@@ -9,6 +9,7 @@ namespace DogsApp.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            this.Database.EnsureCreated();
         }
         public DbSet<Dog> Dogs { get; set; }
     }
