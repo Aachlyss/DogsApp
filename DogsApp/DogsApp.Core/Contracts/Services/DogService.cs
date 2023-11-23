@@ -17,13 +17,13 @@ namespace DogsApp.Core.Contracts.Services
             _context = context;
         }
 
-        public bool Create(string name, int age, string breed, string? picture)
+        public bool Create(string name, int age, int breedId, string? picture)
         {
             Dog item = new Dog
             {
                 Name = name,
                 Age = age,
-                Breed = breed,
+                Breed = _context.Breeds.Find(breedId),
                 Picture = picture,
             };
 
@@ -47,15 +47,15 @@ namespace DogsApp.Core.Contracts.Services
             List<Dog> dogs = _context.Dogs.ToList();
             if (!String.IsNullOrEmpty(searchStringBreed) && !String.IsNullOrEmpty(searchStringName))
             {
-                dogs = dogs.Where(d => d.Breed.Contains(searchStringBreed) && d.Name.Contains(searchStringName)).ToList();
+                dogs = dogs.Where(d => d.Breed.Name.Contains(searchStringBreed) && d.Name.Contains(searchStringName)).ToList();
             }
             else if (!String.IsNullOrEmpty(searchStringBreed))
             {
-                dogs = dogs.Where(d => d.Breed.Contains(searchStringBreed)).ToList();
+                dogs = dogs.Where(d => d.Breed.Name.Contains(searchStringBreed)).ToList();
             }
             else if (!String.IsNullOrEmpty(searchStringName))
             {
-                dogs = dogs.Where(d => d.Breed.Contains(searchStringName)).ToList();
+                dogs = dogs.Where(d => d.Name.Contains(searchStringName)).ToList();
             }
             return dogs;
         }
@@ -71,7 +71,7 @@ namespace DogsApp.Core.Contracts.Services
             return _context.SaveChanges() != 0;
         }
 
-        public bool UpdateDog(int dogId, string name, int age, string breed, string? picture)
+        public bool UpdateDog(int dogId, string name, int age, int breedId, string? picture)
         {
             var dog = GetDogById(dogId);
             if (dog == default(Dog))
@@ -80,7 +80,7 @@ namespace DogsApp.Core.Contracts.Services
             }
             dog.Name = name;
             dog.Age = age;
-            dog.Breed = breed;
+            dog.Breed = _context.Breeds.Find(breedId);
             dog.Picture = picture;
             _context.Update(dog);
             return _context.SaveChanges() != 0;
