@@ -1,6 +1,7 @@
 using DogsApp.Core.Contracts;
 using DogsApp.Core.Contracts.Services;
 using DogsApp.Data;
+using DogsApp.Infrastructure.Data.Domain;
 using DogsApp.Infrastructure.Data.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace DogsApp
                 .UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+            builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireDigit = false;
@@ -29,6 +30,7 @@ namespace DogsApp
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequiredLength = 5;
             })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddTransient<IBreedService, BreedService>();
