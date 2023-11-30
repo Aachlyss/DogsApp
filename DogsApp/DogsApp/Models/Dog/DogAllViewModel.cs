@@ -20,5 +20,7 @@ namespace DogsApp.Models.Dog
         public string? Picture { get; set; }
 
         public virtual List<BreedPairViewModel> Breeds { get; set; } = new List<BreedPairViewModel>();
+        [Display(Name = "Owner Name")]
+        public string FullName { get; set; } = null!;
     }
 }

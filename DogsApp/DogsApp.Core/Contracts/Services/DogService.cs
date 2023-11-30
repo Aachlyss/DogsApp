@@ -17,7 +17,7 @@ namespace DogsApp.Core.Contracts.Services
             _context = context;
         }
 
-        public bool Create(string name, int age, int breedId, string? picture)
+        public bool Create(string name, int age, int breedId, string? picture, string userId)
         {
             Dog item = new Dog
             {
@@ -25,6 +25,7 @@ namespace DogsApp.Core.Contracts.Services
                 Age = age,
                 Breed = _context.Breeds.Find(breedId),
                 Picture = picture,
+                OwnerId = userId
             };
 
             _context.Add(item);

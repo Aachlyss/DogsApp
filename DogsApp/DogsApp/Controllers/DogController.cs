@@ -3,11 +3,14 @@ using DogsApp.Data;
 using DogsApp.Infrastructure.Data.Domain;
 using DogsApp.Models.Breed;
 using DogsApp.Models.Dog;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace DogsApp.Controllers
 {
+    [Authorize]
     public class DogController : Controller
     {
         private readonly IDogService _dogService;
@@ -18,6 +21,7 @@ namespace DogsApp.Controllers
             this._breedService = breedService;
         }
         // GET: DogController
+        [AllowAnonymous]
         public ActionResult Index(string searchStringBreed, string searchStringName)
         {
             List<DogAllViewModel> dogs = _dogService.GetDogs(searchStringBreed, searchStringName)
@@ -28,6 +32,7 @@ namespace DogsApp.Controllers
                     Age = dogFromDb.Age,
                     BreedName = dogFromDb.Breed.Name,
                     Picture = dogFromDb.Picture,
+                    FullName = dogFromDb.Owner.FirstName + " " + dogFromDb.Owner.LastName
                 }).ToList();
             //if (!String.IsNullOrEmpty(searchStringBreed) && !String.IsNullOrEmpty(searchStringName))
             //{
@@ -60,7 +65,8 @@ namespace DogsApp.Controllers
                 Name = item.Name,
                 Age = item.Age,
                 BreedName=item.Breed.Name,
-                Picture = item.Picture
+                Picture = item.Picture,
+                FullName = item.Owner.FirstName + " " +item.Owner.LastName
             };
             return View(dog);
         }
@@ -86,7 +92,8 @@ namespace DogsApp.Controllers
         {
             if (ModelState.IsValid)
             {
-               var created = _dogService.Create(dog.Name, dog.Age, dog.BreedName, dog.Picture);
+                string currentUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var created = _dogService.Create(dog.Name, dog.Age, dog.BreedName, dog.Picture, currentUserId);
                 if (created)
                 {
                     return RedirectToAction(nameof(Index));
@@ -150,12 +157,12 @@ namespace DogsApp.Controllers
             {
                 return NotFound();
             }
-            DogCreateViewModel dog = new DogCreateViewModel()
+            DogDetailsViewModel dog = new()
             {
                 Id = item.Id,
                 Name = item.Name,
                 Age = item.Age,
-                BreedName = item.BreedId,
+                BreedName = item.Breed.Name,
                 Picture = item.Picture
             };
             return View(dog);
